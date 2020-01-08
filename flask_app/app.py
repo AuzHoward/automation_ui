@@ -2,6 +2,8 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+app.config['SECRET_KEYS'] = '1647f99d4020bfd77af8410fda6d83be'
+
 posts = [
 	{
 		'steps': 'Go to URL',

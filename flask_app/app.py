@@ -1,0 +1,25 @@
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+posts = [
+	{
+		'steps': 'Go to URL',
+		'action': 'navigate to',
+		'element': 'selector',
+		'input': 'google.com'
+	},
+	{
+		'steps': 'click link',
+		'action': 'click',
+		'element': 'xpath',
+		'input': 'submit'
+	}
+]
+
+@app.route('/')
+def index():
+	return render_template('template.html', posts=posts)
+
+if __name__ == '__main__':
+	app.run(debug=True)

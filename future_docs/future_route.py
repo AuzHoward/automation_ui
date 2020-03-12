@@ -3,6 +3,7 @@ from flaskbot import app, db, bcrypt
 from flaskbot.forms import RegistrationForm, LoginForm
 from flaskbot.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+import uuid
 
 
 posts = [
@@ -71,3 +72,16 @@ def logout():
 @login_required
 def account():
     return render_template('account.html', title='Account')
+
+@app.route("/TestCase", methods=['GET', 'POST'])
+def register():
+    form = TestCaseForm()
+    if form.validate_on_submit():
+        #test_id = uuid.uuid1()
+        test_case = TestCase(test_id=uuid.uuid1(), test_name=form.test_name.data)
+        test_steps = TestSteps(title=form.title.data, action=form.action.data, element_type=form.element_type.data, element_id=form.element_id.data, input_test=form.input_test.data)
+        db.session.add(test)#find out where to implement test variable like user is
+        db.session.commit()
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)

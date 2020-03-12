@@ -27,8 +27,10 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 #---------------------------------------------------------------
+class TastCaseTitle(FlaskForm):
+    test_name = StringField('Test Name', validators=[DataRequired(), Length(min=2, max=20)])
 
-class RegistrationForm(FlaskForm):
+class TestCaseForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
     action = StringField('Action', validators=[DataRequired(), Length(min=2, max=20)])
     element_type = StringField('Element Type', validators=[DataRequired()])
@@ -36,6 +38,7 @@ class RegistrationForm(FlaskForm):
     input_test = StringField('Element ID', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
+#DONT NEED
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:

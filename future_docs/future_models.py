@@ -28,13 +28,18 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
-class Automate(db.Model):
-    step_id = db.Column(db.Integer, primary_key=True)
+class TestCase(db.Model):
+    test_id = db.Column(db.Integer, primary_key=True) #uuid.uuid1()
+    test_name = db.Column(db.Integer, nullable=False)
+
+class TestSteps(db.Model):
+    step_number = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     action = db.Column(db.String, nullable=False)
     element_type = db.Column(db.Text, nullable=False)
     element_id = db.Column(db.Integer, nullable=False)
     input_test = db.Column(db.String, nullable=False)
+    test_id = db.Column(db.Integer, db.ForeignKey('TestCase.test_id'), nullable=False)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"

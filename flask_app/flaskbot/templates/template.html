@@ -100,24 +100,20 @@
       cursor: pointer;
       }
       .add-button{
-      width: 75px;
+      width: 30px;
       padding: 10px;
       border: none;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+
       background-color: #2d7364;
       font-size: 16px;
       color: #fff;
       cursor: pointer;
       }
       .delete-button{
-      width: 75px;
+      width: 30px;
       padding: 10px;
       border: none;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+
       background-color: #66223b;
       font-size: 16px;
       color: #fff;
@@ -133,6 +129,11 @@
       }
     </style>
     <script>
+      function removeField (argument) {
+        var myTable = document.getElementById("automationTable");
+        var currentIndex = myTable.rows.length;
+        var currentRow = myTable.deleteRow(-1);
+      }
       function addField (argument) {
       var myTable = document.getElementById("automationTable");
       var currentIndex = myTable.rows.length;
@@ -141,20 +142,30 @@
       var stepName = document.createElement("input");  //class="in-col" type="input" value="Step Name" name="step"
       stepName.setAttribute("name", "step" + currentIndex);
       stepName.setAttribute("class", "in-col");
-      stepName.setAttribute("value", "Step Name" + currentIndex);
+      stepName.setAttribute("value", "Step Name" + " " + currentIndex);
 
       var linksBox = document.createElement("select");
+      var actionOpt1 = document.createElement("option")
+      var actionOpt2 = document.createElement("option")
+      var actionOpt3 = document.createElement("option")
+      var actionOpt4 = document.createElement("option")
       linksBox.setAttribute("name", "action" + currentIndex);
       linksBox.setAttribute("class", "in-col");
+      linksBox.setAttribute("value", "Navigate To");
+      actionOpt1.setAttribute("value", 0);
+      actionOpt2.setAttribute("value", 0);
+      actionOpt3.setAttribute("value", 0);
+      actionOpt4.setAttribute("value", 0);
 
       var keywordsBox = document.createElement("input");  //class="in-col" type="input" value="Element" name="element"
       keywordsBox.setAttribute("name", "element" + currentIndex);
       keywordsBox.setAttribute("class", "in-col");
+      keywordsBox.setAttribute("value", "Element");
 
       var violationsBox = document.createElement("input");  //class="in-col" type="input" value="none" name="input"
       violationsBox.setAttribute("name", "input" + currentIndex);
       violationsBox.setAttribute("class", "in-col");
-      violationsBox.setAttribute("value", "Input");
+      violationsBox.setAttribute("value", "none");
 
       var addRowBox = document.createElement("input");
       addRowBox.setAttribute("type", "button");
@@ -165,13 +176,21 @@
       var deleteRowBox = document.createElement("input");
       deleteRowBox.setAttribute("type", "button");
       deleteRowBox.setAttribute("value", "-");
-      deleteRowBox.setAttribute("onclick", "addField();");
+      deleteRowBox.setAttribute("onclick", "removeField();");
       deleteRowBox.setAttribute("class", "delete-button");
 
       var currentCell = currentRow.insertCell(-1);
       currentCell.appendChild(stepName);
 
       currentCell = currentRow.insertCell(-1);
+      actionOpt1.appendChild(document.createTextNode( "Navigate To" ));
+      actionOpt2.appendChild(document.createTextNode( "Click" ));
+      actionOpt3.appendChild(document.createTextNode( "Insert" ));
+      actionOpt4.appendChild(document.createTextNode( "Find" ));
+      linksBox.appendChild(actionOpt1);
+      linksBox.appendChild(actionOpt2);
+      linksBox.appendChild(actionOpt3);
+      linksBox.appendChild(actionOpt4);
       currentCell.appendChild(linksBox);
 
       currentCell = currentRow.insertCell(-1);
@@ -182,6 +201,7 @@
 
       currentCell = currentRow.insertCell(-1);
       currentCell.appendChild(addRowBox);
+      currentCell.appendChild(deleteRowBox);
 
       //currentCell = currentRow.insertCell(-1));
       //currentCell.appendChild(deleteRowBox);
@@ -212,8 +232,7 @@
                 </select>
             <td><input class="in-col" type="input" value="Element" name="element" /></td>
             <td><input class="in-col" type="input" value="none" name="input" /></td>
-            <td class="but-col"><input class="add-button" type="button" onclick="addField();" href="/" value="+"/></td>
-            <td class="but-col"><input class="delete-button" type="button" onclick="addField();" href="/" value="-"/></td>
+            <td class="but-col"><input class="add-button" type="button" onclick="addField();" href="/" value="+"/><input class="delete-button" type="button" onclick="removeField();" href="/" value="-"/></td>
           </tr>
         </table>
         <h4>Test Description</h4>

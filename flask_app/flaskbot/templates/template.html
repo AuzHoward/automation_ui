@@ -73,6 +73,10 @@
       width: 90%;
       text-align: center;
       }
+      .sel-col{
+      width: 4%;
+      text-align: center;
+      }
       .but-col{
       width: 5%;
       text-align: center;
@@ -143,12 +147,12 @@
       stepName.setAttribute("name", "step" + currentIndex);
       stepName.setAttribute("class", "in-col");
       stepName.setAttribute("value", "Step Name" + " " + currentIndex);
-
+      
       var linksBox = document.createElement("select");
-      var actionOpt1 = document.createElement("option")
-      var actionOpt2 = document.createElement("option")
-      var actionOpt3 = document.createElement("option")
-      var actionOpt4 = document.createElement("option")
+      var actionOpt1 = document.createElement("option");
+      var actionOpt2 = document.createElement("option");
+      var actionOpt3 = document.createElement("option");
+      var actionOpt4 = document.createElement("option");
       linksBox.setAttribute("name", "action" + currentIndex);
       linksBox.setAttribute("class", "in-col");
       linksBox.setAttribute("value", "Navigate To");
@@ -156,6 +160,17 @@
       actionOpt2.setAttribute("value", 0);
       actionOpt3.setAttribute("value", 0);
       actionOpt4.setAttribute("value", 0);
+
+      var selectorType = document.createElement("select");
+      var typeOpt1 = document.createElement("option");
+      var typeOpt2 = document.createElement("option");
+      var typeOpt3 = document.createElement("option");
+      selectorType.setAttribute("name", "sel-type" + currentIndex);
+      selectorType.setAttribute("class", "in-col");
+      selectorType.setAttribute("value", "type");
+      typeOpt1.setAttribute("value", 0);
+      typeOpt2.setAttribute("value", 0);
+      typeOpt3.setAttribute("value", 0);
 
       var keywordsBox = document.createElement("input");  //class="in-col" type="input" value="Element" name="element"
       keywordsBox.setAttribute("name", "element" + currentIndex);
@@ -193,6 +208,17 @@
       linksBox.appendChild(actionOpt4);
       currentCell.appendChild(linksBox);
 
+
+      currentCell = currentRow.insertCell(-1);
+      currentCell.style.width = '100px';
+      typeOpt1.appendChild(document.createTextNode( "xPath" ));
+      typeOpt2.appendChild(document.createTextNode( "CSS" ));
+      typeOpt3.appendChild(document.createTextNode( "HTML" ));
+      selectorType.appendChild(typeOpt1);
+      selectorType.appendChild(typeOpt2);
+      selectorType.appendChild(typeOpt3);
+      currentCell.appendChild(selectorType);
+
       currentCell = currentRow.insertCell(-1);
       currentCell.appendChild(keywordsBox);
 
@@ -200,6 +226,7 @@
       currentCell.appendChild(violationsBox);
 
       currentCell = currentRow.insertCell(-1);
+      currentCell.style.width = '100px';
       currentCell.appendChild(addRowBox);
       currentCell.appendChild(deleteRowBox);
 
@@ -219,6 +246,7 @@
           <tr>
             <th class="first-col">Step Name</th>
             <th>Action</th>
+            <th class="sel-col">Type</th>
             <th>Element</th>
             <th>Input</th>
           </tr>
@@ -229,7 +257,12 @@
                   <option value="Click">Click</option>
                   <option value="Insert">Insert</option>
                   <option value="Find">Find</option>
-                </select>
+                </select></td>
+            <td class="sel-col"><select class="in-col" name="selectorType">
+                  <option value="xPath">xPath</option>
+                  <option value="CSS">CSS</option>
+                  <option value="HTML">HTML</option>
+                </select></td>
             <td><input class="in-col" type="input" value="Element" name="element" /></td>
             <td><input class="in-col" type="input" value="none" name="input" /></td>
             <td class="but-col"><input class="add-button" type="button" onclick="addField();" href="/" value="+"/><input class="delete-button" type="button" onclick="removeField();" href="/" value="-"/></td>

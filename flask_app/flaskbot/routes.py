@@ -1,7 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from flaskbot import app, db, bcrypt
-from flaskbot.forms import RegistrationForm, LoginForm
-from flaskbot.models import User, Post
+from flaskbot.forms import RegistrationForm, LoginForm, TestCaseForm
+from flaskbot.autoscripttemp import Automate, ChromeConfig
+from flaskbot.models import User, Post, TestSteps
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -71,3 +72,26 @@ def logout():
 @login_required
 def account():
     return render_template('account.html', title='Account')
+
+#@app.route("/automation")
+#def registerauto():
+#    return render_template('registerauto.html', title='Automation')
+
+@app.route("/automation", methods=['GET', 'POST'])
+def registerauto():
+    form = TestCaseForm()
+    if form.validate_on_submit():
+        user_input = 'testing123'
+        ChromeConfig.chromeDriver()
+        cd = ChromeConfig.chromeDriver().chrome
+        #test_id = uuid.uuid1()
+        #test_case = TestCase(test_id=uuid.uuid1(), test_name=form.test_name.data)
+        #print("Running registerauto")
+        #----------------------------------------------here is database
+        #test_steps = TestSteps(step_name=form.step_name.data, action=form.action.data, element_type=form.element_type.data, element_id=form.element_id.data, input_string=form.input_string.data)
+        #db.session.add(test_steps)#find out where to implement test variable like user is
+        #db.session.commit()
+        Automate.run(form.action.data, form.element_type.data, form.element_id.data, form.input_string.data, cd)
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('login'))
+    return render_template('registerauto.html', title='Automation', form=form)

@@ -27,3 +27,19 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+class TestCase(db.Model):
+    test_id = db.Column(db.Integer, primary_key=True) #uuid.uuid1()
+    test_name = db.Column(db.Integer, nullable=False)
+
+class TestSteps(db.Model):
+    #step_number = db.Column(db.Integer, primary_key=True)
+    step_name = db.Column(db.String(100), primary_key=True)
+    action = db.Column(db.String, nullable=False)
+    element_type = db.Column(db.Text, nullable=False)
+    element_id = db.Column(db.Integer, nullable=False)
+    input_string = db.Column(db.String, nullable=False)
+    #test_id = db.Column(db.Integer, db.ForeignKey('TestCase.test_id'), nullable=False)
+
+    def __repr__(self):
+        return f"Post('{self.step_name}', '{self.input_string}')"

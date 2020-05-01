@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Customer Feedback Form</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, p, select {
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      line-height: 22px;
+      }
+      h1 {
+      font-weight: 400;
+      }
+      h4 {
+      margin: 15px 0 4px;
+      }
+      .testbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: inherit;
+      padding: 3px;
+      }
+      form {
+      width: 100%;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px #ccc;
+      }
+      input, select {
+      width: calc(100% - 10px);
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      vertical-align: middle;
+      }
+      .email {
+      display: block;
+      width: 45%;
+      }
+      input:hover, textarea:hover{
+      outline: none;
+      border: 1px solid #095484;
+      }
+      th, td {
+      width: 15%;
+      padding: 15px 0;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+      vertical-align: unset;
+      line-height: 18px;
+      font-weight: 400;
+      word-break: break-all;
+      }
+      .first-col {
+      width: 3%;
+      text-align: left;
+      }
+      .all-col{
+      width: 25%;
+      text-align: center;
+      }
+      .in-col{
+      width: 90%;
+      text-align: center;
+      }
+      .sel-col{
+      width: 4%;
+      text-align: center;
+      }
+      .but-col{
+      width: 5%;
+      text-align: center;
+      }
+      table {
+      width: 100%;
+      }
+      textarea {
+      width: calc(100% - 6px);
+      }
+      .btn-block {
+      margin-top: 20px;
+      text-align: center;
+      }
+      button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      background-color: #095484;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      .add-button{
+      width: 30px;
+      padding: 10px;
+      border: none;
+
+      background-color: #2d7364;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      .delete-button{
+      width: 30px;
+      padding: 10px;
+      border: none;
+
+      background-color: #66223b;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      }
+      button:hover {
+      background-color: #0666a3;
+      }
+      @media (min-width: 568px) {
+      th, td {
+      word-break: keep-all;
+      }
+      }
+    </style>
+    <script>
+      function removeField (argument) {
+        var myTable = document.getElementById("automationTable");
+        var currentIndex = myTable.rows.length;
+        var currentRow = myTable.deleteRow(-1);
+      }
+      function addField (argument) {
+      var myTable = document.getElementById("automationTable");
+      var currentIndex = myTable.rows.length;
+      var currentRow = myTable.insertRow(-1);
+
+      var stepName = document.createElement("input");  //class="in-col" type="input" value="Step Name" name="step"
+      stepName.setAttribute("name", "step" + currentIndex);
+      stepName.setAttribute("class", "in-col");
+      stepName.setAttribute("value", "Step Name" + " " + currentIndex);
+
+      var linksBox = document.createElement("select");
+      var actionOpt1 = document.createElement("option");
+      var actionOpt2 = document.createElement("option");
+      var actionOpt3 = document.createElement("option");
+      var actionOpt4 = document.createElement("option");
+      linksBox.setAttribute("name", "action" + currentIndex);
+      linksBox.setAttribute("class", "in-col");
+      linksBox.setAttribute("value", "Navigate To");
+      actionOpt1.setAttribute("value", 0);
+      actionOpt2.setAttribute("value", 0);
+      actionOpt3.setAttribute("value", 0);
+      actionOpt4.setAttribute("value", 0);
+
+      var selectorType = document.createElement("select");
+      var typeOpt1 = document.createElement("option");
+      var typeOpt2 = document.createElement("option");
+      var typeOpt3 = document.createElement("option");
+      selectorType.setAttribute("name", "sel-type" + currentIndex);
+      selectorType.setAttribute("class", "in-col");
+      selectorType.setAttribute("value", "type");
+      typeOpt1.setAttribute("value", 0);
+
+      typeOpt2.setAttribute("value", 0);
+      typeOpt3.setAttribute("value", 0);
+
+      var keywordsBox = document.createElement("input");  //class="in-col" type="input" value="Element" name="element"
+      keywordsBox.setAttribute("name", "element" + currentIndex);
+      keywordsBox.setAttribute("class", "in-col");
+      keywordsBox.setAttribute("value", "Element");
+
+      var violationsBox = document.createElement("input");  //class="in-col" type="input" value="none" name="input"
+      violationsBox.setAttribute("name", "input" + currentIndex);
+      violationsBox.setAttribute("class", "in-col");
+      violationsBox.setAttribute("value", "none");
+
+      var addRowBox = document.createElement("input");
+      addRowBox.setAttribute("type", "button");
+      addRowBox.setAttribute("value", "+");
+      addRowBox.setAttribute("onclick", "addField();");
+      addRowBox.setAttribute("class", "add-button");
+
+      var deleteRowBox = document.createElement("input");
+      deleteRowBox.setAttribute("type", "button");
+      deleteRowBox.setAttribute("value", "-");
+      deleteRowBox.setAttribute("onclick", "removeField();");
+      deleteRowBox.setAttribute("class", "delete-button");
+
+      var currentCell = currentRow.insertCell(-1);
+      currentCell.appendChild(stepName);
+
+      currentCell = currentRow.insertCell(-1);
+      actionOpt1.appendChild(document.createTextNode( "Navigate To" ));
+      actionOpt2.appendChild(document.createTextNode( "Click" ));
+      actionOpt3.appendChild(document.createTextNode( "Insert" ));
+      actionOpt4.appendChild(document.createTextNode( "Find" ));
+      linksBox.appendChild(actionOpt1);
+      linksBox.appendChild(actionOpt2);
+      linksBox.appendChild(actionOpt3);
+      linksBox.appendChild(actionOpt4);
+      currentCell.appendChild(linksBox);
+
+
+      currentCell = currentRow.insertCell(-1);
+      currentCell.style.width = '100px';
+      typeOpt1.appendChild(document.createTextNode( "xPath" ));
+      typeOpt2.appendChild(document.createTextNode( "CSS" ));
+      typeOpt3.appendChild(document.createTextNode( "HTML" ));
+      selectorType.appendChild(typeOpt1);
+      selectorType.appendChild(typeOpt2);
+      selectorType.appendChild(typeOpt3);
+      currentCell.appendChild(selectorType);
+
+      currentCell = currentRow.insertCell(-1);
+      currentCell.appendChild(keywordsBox);
+
+      currentCell = currentRow.insertCell(-1);
+      currentCell.appendChild(violationsBox);
+
+      currentCell = currentRow.insertCell(-1);
+      currentCell.style.width = '100px';
+      currentCell.appendChild(addRowBox);
+      currentCell.appendChild(deleteRowBox);
+
+      //currentCell = currentRow.insertCell(-1));
+      //currentCell.appendChild(deleteRowBox);
+      }
+    </script>
+  </head>
+  {% extends "layout.html" %}
+  {% block content %}
+  <body>
+    <div class="testbox">
+      <div class="content-section">
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          <h1>Automation Testing</h1>
+          <p>Each row is a test step, click "Add Step" to add an additional test step. Enter required fields to run valid automation test.</p>
+          <hr />
+          <h3>Test Case</h3>
+          <table id="automationTable">
+            <tr>
+              <th class="first-col">Step Name</th>
+              <th>Action</th>
+              <th class="sel-col">Type</th>
+              <th>Element</th>
+              <th>Input</th>
+            </tr>
+            <tr>
+              <fieldset class="form-group">
+                <td class="form-group">
+                  {{ form.step_name.label(class="form-control-label") }}
+
+                  {% if form.step_name.errors %}
+                    {{ form.step_name(class="form-control form-control-lg is-invalid") }}
+                    <input class="in-col" type="input" value="Step Name" name="step"/>
+                    <div class="invalid-feedback">
+                      {% for error in form.step_name.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.step_name(class="form-control form-control-lg") }}
+                  {% endif %}
+                  </td>
+
+
+                <td class="form-group">
+                  {{ form.action.label(class="form-control-label") }}
+
+                  {% if form.action.errors %}
+                    {{ form.action(class="form-control form-control-lg is-invalid") }}
+                    <select class="in-col" name="action">
+                      <option value="Navigate To">Navigate To</option>
+                      <option value="Click">Click</option>
+                      <option value="Insert">Insert</option>
+                      <option value="Find">Find</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      {% for error in form.action.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.action(class="form-control form-control-lg") }}
+                  {% endif %}
+                </td>
+
+
+                <td class="form-group">
+                  {{ form.element_type.label(class="form-control-label") }}
+
+                  {% if form.element_type.errors %}
+                    {{ form.element_type(class="form-control form-control-lg is-invalid") }}
+                    <select class="in-col" name="selectorType">
+                      <option value="xPath">xPath</option>
+                      <option value="CSS">CSS</option>
+                      <option value="HTML">HTML</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      {% for error in form.element_type.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.element_type(class="form-control form-control-lg") }}
+                  {% endif %}
+                </td>
+
+                <td class="form-group">
+                  {{ form.element_id.label(class="form-control-label") }}
+
+                  {% if form.element_id.errors %}
+                    {{ form.element_id(class="form-control form-control-lg is-invalid") }}
+                    <input class="in-col" type="input" value="Element" name="element" />
+                    <div class="invalid-feedback">
+                      {% for error in form.element_id.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.element_id(class="form-control form-control-lg") }}
+                  {% endif %}
+                </td>
+
+                <td class="form-group">
+                  {{ form.input_string.label(class="form-control-label") }}
+
+                  {% if form.input_string.errors %}
+                    {{ form.input_string(class="form-control form-control-lg is-invalid") }}
+                    <input class="in-col" type="input" value="none" name="input" />
+                    <div class="invalid-feedback">
+                      {% for error in form.input_string.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                      {{ form.input_string(class="form-control form-control-lg") }}
+                  {% endif %}
+                </td>
+
+                <td class="but-col"><input class="add-button" type="button" onclick="addField();" href="/" value="+"/><input class="delete-button" type="button" onclick="removeField();" href="/" value="-"/></td>
+              </fieldset>
+            </tr>
+          </table>
+          <h4>Test Description</h4>
+          <textarea rows="5"></textarea>
+          <h4>Number Of Runs</h4>
+          <small>Only if you want multiple runs.</small>
+          <input class="email" type="text" name="name" />
+          <div class="btn-block">
+            <button type="submit" href="/">Run Test</button>
+          </div>
+          <div class="form-group">
+              {{ form.submit(class="btn btn-outline-info") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  {% endblock content %}
+</html>

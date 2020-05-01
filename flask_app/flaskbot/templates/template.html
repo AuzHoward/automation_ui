@@ -147,7 +147,7 @@
       stepName.setAttribute("name", "step" + currentIndex);
       stepName.setAttribute("class", "in-col");
       stepName.setAttribute("value", "Step Name" + " " + currentIndex);
-      
+
       var linksBox = document.createElement("select");
       var actionOpt1 = document.createElement("option");
       var actionOpt2 = document.createElement("option");
@@ -169,6 +169,7 @@
       selectorType.setAttribute("class", "in-col");
       selectorType.setAttribute("value", "type");
       typeOpt1.setAttribute("value", 0);
+
       typeOpt2.setAttribute("value", 0);
       typeOpt3.setAttribute("value", 0);
 
@@ -235,48 +236,55 @@
       }
     </script>
   </head>
+  {% extends "layout.html" %}
+  {% block content %}
   <body>
     <div class="testbox">
-      <form action="/">
-        <h1>Automation Testing</h1>
-        <p>Each row is a test step, click "Add Step" to add an additional test step. Enter required fields to run valid automation test.</p>
-        <hr />
-        <h3>Test Case</h3>
-        <table id="automationTable">
-          <tr>
-            <th class="first-col">Step Name</th>
-            <th>Action</th>
-            <th class="sel-col">Type</th>
-            <th>Element</th>
-            <th>Input</th>
-          </tr>
-          <tr>
-            <td><input class="in-col" type="input" value="Step Name" name="step"></></td>
-            <td><select class="in-col" name="action">
-                  <option value="Navigate To">Navigate To</option>
-                  <option value="Click">Click</option>
-                  <option value="Insert">Insert</option>
-                  <option value="Find">Find</option>
-                </select></td>
-            <td class="sel-col"><select class="in-col" name="selectorType">
-                  <option value="xPath">xPath</option>
-                  <option value="CSS">CSS</option>
-                  <option value="HTML">HTML</option>
-                </select></td>
-            <td><input class="in-col" type="input" value="Element" name="element" /></td>
-            <td><input class="in-col" type="input" value="none" name="input" /></td>
-            <td class="but-col"><input class="add-button" type="button" onclick="addField();" href="/" value="+"/><input class="delete-button" type="button" onclick="removeField();" href="/" value="-"/></td>
-          </tr>
-        </table>
-        <h4>Test Description</h4>
-        <textarea rows="5"></textarea>
-        <h4>Number Of Runs</h4>
-        <small>Only if you want multiple runs.</small>
-        <input class="email" type="text" name="name" />
-        <div class="btn-block">
-          <button type="submit" href="/">Run Test</button>
-        </div>
-      </form>
+      <div class="content-section">
+        <form method="POST" action="">
+          <h1>Automation Testing</h1>
+          <p>Each row is a test step, click "Add Step" to add an additional test step. Enter required fields to run valid automation test.</p>
+          <hr />
+          <h3>Test Case</h3>
+          <table id="automationTable">
+            <tr>
+              <th class="first-col">Step Name</th>
+              <th>Action</th>
+              <th class="sel-col">Type</th>
+              <th>Element</th>
+              <th>Input</th>
+            </tr>
+            <tr>
+              <fieldset class="form-group">
+                <td><input class="in-col" type="input" value="Step Name" name="step"></></td>
+                <td><select class="in-col" name="action">
+                      <option value="Navigate To">Navigate To</option>
+                      <option value="Click">Click</option>
+                      <option value="Insert">Insert</option>
+                      <option value="Find">Find</option>
+                    </select></td>
+                <td class="sel-col"><select class="in-col" name="selectorType">
+                      <option value="xPath">xPath</option>
+                      <option value="CSS">CSS</option>
+                      <option value="HTML">HTML</option>
+                    </select></td>
+                <td><input class="in-col" type="input" value="Element" name="element" /></td>
+                <td><input class="in-col" type="input" value="none" name="input" /></td>
+                <td class="but-col"><input class="add-button" type="button" onclick="addField();" href="/" value="+"/><input class="delete-button" type="button" onclick="removeField();" href="/" value="-"/></td>
+              </fieldset>
+            </tr>
+          </table>
+          <h4>Test Description</h4>
+          <textarea rows="5"></textarea>
+          <h4>Number Of Runs</h4>
+          <small>Only if you want multiple runs.</small>
+          <input class="email" type="text" name="name" />
+          <div class="btn-block">
+            <button type="submit" href="/">Run Test</button>
+          </div>
+        </form>
+      </div>
     </div>
   </body>
+  {% endblock content %}
 </html>

@@ -5,25 +5,27 @@ import time
 #input_xpath = raw_input
 #findElement = 'driver.find_element_by_xpath('inputXpath')'
 
-class ChromeConfig():
-    def chromeDriver():
+class ChromeConfig(object):
+    chrome = ''
+    def __init__(self):
         EXE_PATH = r'C:\automation_ui\flask_app\flaskbot\automation\drivers\chromedriver.exe'
-        chrome = webdriver.Chrome(executable_path=EXE_PATH)
-        chrome.get('https://google.com')
-        teststring = "CAN YOU SEE THIS AUZ"
+        self.chrome = webdriver.Chrome(executable_path=EXE_PATH)
 
 class Automate(ChromeConfig):
-    def runCSS(id, value, act, chrome): #find navigate click sendkeys
+    def runCSS(self, id, value, act): #find navigate click sendkeys
+        chrome = self.chrome
         if act == 'Navigate':
             action_var = "driver.get(input_string)"
         else:# action == 'Click':
-            #print(stringt)
+            #print(teststring)
+            chrome.get('https://google.com')
             element = chrome.find_element_by_css_selector(id).send_keys(value)
 
 
-    def run(action, element_type, element_id, input_string, chrome):#first if will be navigate
+    def run(action, element_type, element_id, input_string):#first if will be navigate
+        auto = Automate()
         if element_type == "css":
-            Automate.runCSS(element_id, input_string, action, chrome)
+            auto.runCSS(element_id, input_string, action)
         else:# element_type == "xpath":
             runXPATH(element_id, input_string)
 

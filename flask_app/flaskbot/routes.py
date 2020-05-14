@@ -80,10 +80,8 @@ def account():
 @app.route("/automation", methods=['GET', 'POST'])
 def registerauto():
     form = TestCaseForm()
+    #webdriver = ChromeConfig()
     if form.validate_on_submit():
-        user_input = 'testing123'
-        ChromeConfig.chromeDriver()
-        cd = ChromeConfig.chromeDriver().chrome
         #test_id = uuid.uuid1()
         #test_case = TestCase(test_id=uuid.uuid1(), test_name=form.test_name.data)
         #print("Running registerauto")
@@ -91,7 +89,7 @@ def registerauto():
         #test_steps = TestSteps(step_name=form.step_name.data, action=form.action.data, element_type=form.element_type.data, element_id=form.element_id.data, input_string=form.input_string.data)
         #db.session.add(test_steps)#find out where to implement test variable like user is
         #db.session.commit()
-        Automate.run(form.action.data, form.element_type.data, form.element_id.data, form.input_string.data, cd)
+        Automate.run(form.action.data, form.element_type.data, form.element_id.data, form.input_string.data)
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('registerauto.html', title='Automation', form=form)
